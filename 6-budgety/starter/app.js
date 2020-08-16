@@ -67,9 +67,11 @@ var UIController = (function () {
         value: document.querySelector(DOMstrings.inputValue).value,
       }
     },
+
     getDOMstrings: function() {
       return DOMstrings;
     },
+
     addListItem: function(obj, type) {
       var html, newHtml, element;
       // Create HTML String with placeholer text
@@ -90,6 +92,23 @@ var UIController = (function () {
 
       // Insert HTML into DOM
       document.querySelector(element).insertAdjacentHTML('beforeend', newHtml);
+    },
+
+    clearFields: function() {
+      var fields, fieldArr;
+
+      // this is not an array, this is a list (node list)
+      fields = document.querySelectorAll(DOMstrings.inputDescription + ', ' + DOMstrings.inputValue);
+
+      // create a new array of input field named fieldArr
+      fieldArr = Array.prototype.slice.call(fields);
+
+      fieldArr.forEach(function(field) {
+        field.value = '';
+      });
+
+      // focus to description input after add a new item
+      fieldArr[0].focus();
     }
   };
 })();
@@ -122,6 +141,7 @@ var controller = (function (butgetCtrl, UICtrl) {
 
     // 3. Add the item to UI
     UICtrl.addListItem(newItem, input.type);
+    UICtrl.clearFields();
 
     // 4. Calculate the budget
 
