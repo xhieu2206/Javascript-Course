@@ -84,6 +84,21 @@ var budgetController = (function () {
       }
     },
 
+    deleteItem: function(type, id) {
+
+      var ids, index;
+
+      ids = data.allItems[type].map(function(item) {
+        return item.id;
+      });
+
+      index = ids.indexOf(id);
+
+      if (index !== -1) {
+        data.allItems[type].splice(index, 1);
+      }
+    },
+
     testing: function() {
       console.log(data);
     }
@@ -236,16 +251,17 @@ var controller = (function (butgetCtrl, UICtrl) {
 
   var ctrlDeleteItem = function(event) {
 
-    var itemID, splitID, type;
+    var itemID, id, type;
 
     itemID = event.target.parentNode.parentNode.parentNode.parentNode.id;
 
     if (itemID) {
 
       type = itemID.split('-')[0];
-      splitID = itemID.split('-')[1];
+      id = itemID.split('-')[1];
 
       // 1. Delete the item from data structure
+      butgetCtrl.deleteItem(type, parseInt(id));
 
       // 2. Delete the item from UI
 
