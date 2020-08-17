@@ -5,6 +5,21 @@ var budgetController = (function () {
     this.id = id;
     this.description = description;
     this.value = value;
+    this.percentage = -1;
+  }
+
+  Expense.prototype.calcPercentage = function(totalInc) {
+
+    if (totalInc > 0) {
+      this.percentage = Math.round((this.value / totalInc) * 100);
+    } else {
+      this.percentage = -1;
+    }
+
+  }
+
+  Expense.prototype.getPercentage = function() {
+    return this.percentage;
   }
 
   var Income = function(id, description, value) {
@@ -73,6 +88,20 @@ var budgetController = (function () {
         data.percentage = -1;
       }
 
+    },
+
+    calculatePercentages: function() {
+
+      data.allItems.exp.forEach(function(item) {
+        item.calcPercentage(data.totals.inc);
+      });
+    },
+
+    getPercentages: function() {
+      var allPercentages = data.allItems.exp.map(function(item) {
+        return item.percentage;
+      });
+      return allPercentages;
     },
 
     getBudget: function() {
@@ -199,7 +228,7 @@ var UIController = (function () {
 })();
 
 // GLOBAL APP CONTROLLER
-var controller = (function (butgetCtrl, UICtrl) {
+var controller = (function (budgetCtrl, UICtrl) {
 
   var setupEventListeners = function() {
 
@@ -221,10 +250,10 @@ var controller = (function (butgetCtrl, UICtrl) {
     var budget;
 
     // 1. Calculate the budget
-    butgetCtrl.calculateBudget();
+    budgetCtrl.calculateBudget();
 
     // 2. Return the budget
-    budget = butgetCtrl.getBudget();
+    budget = budgetCtrl.getBudget();
 
     // 3. Display the budget on the UI
     UICtrl.displayBudget(budget);
@@ -233,10 +262,13 @@ var controller = (function (butgetCtrl, UICtrl) {
   var updatePercentages = function() {
 
     // 1. Calculate percentages
+    budgetCtrl.calculatePercentages();
 
     // 2. Read percentages from the budget controller
+    var percentages = budgetCtrl.getPercentages();
 
     // 3. Update the UI with new percentages
+    console.log(percentages);
   };
 
   var ctrlAddItem = function () {
@@ -278,7 +310,7 @@ var controller = (function (butgetCtrl, UICtrl) {
       id = itemID.split('-')[1];
 
       // 1. Delete the item from data structure
-      butgetCtrl.deleteItem(type, parseInt(id));
+      budgetCtrl.deleteItem(type, parseInt(id));
 
       // 2. Delete the item from UI
       UICtrl.deleteListItem(itemID);
