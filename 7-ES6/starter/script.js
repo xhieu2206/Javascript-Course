@@ -47,6 +47,7 @@ driversLicense6(true);
 */
 
 // Lecture: Blocks and IIEFS
+/*
 {
   const a = 1;
   let b = 2;
@@ -54,3 +55,25 @@ driversLicense6(true);
 }
 
 console.log(c);
+*/
+
+// Lecture: Strings
+
+// Arrow Function: Basics
+const years = [1994, 2000, 2003, 1996];
+
+// ES5
+var ages5 = years.map(function(year) {
+  return 2020 - year;
+})
+
+// ES6
+let ages6 = years.map(year => 2020 - year);
+
+ages6 = years.map((year, index) => `Age element ${index++}: ${2020 -year}`);
+
+ages6 = years.map((year, index) => {
+  const now = new Date().getFullYear();
+  const age = now - year;
+  return `Age element ${index++}: ${age}`;
+});
