@@ -46,3 +46,11 @@ function driversLicense6(passedTesst) {
 driversLicense6(true);
 */
 
+// Lecture: Blocks and IIEFS
+{
+  const a = 1;
+  let b = 2;
+  var c = a + b
+}
+
+console.log(c);
