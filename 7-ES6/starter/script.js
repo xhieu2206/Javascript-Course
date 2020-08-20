@@ -130,9 +130,11 @@ const box66 = {
 box66.clickMe(); // đây là hộp thứ undefined có màu undefined
 */
 
+/*
 function Person(name) {
   this.name = name;
 }
+*/
 
 /*
 Person.prototype.myFriends5 = function(friends) {
@@ -159,3 +161,34 @@ hieu.myFriends5(friends);  // ["Hieu là bạn của Bob", "Hieu là bạn củ
 // var friends = ['Bob', 'Mary', 'John'];
 // var hieu = new Person('Hieu');
 // hieu.myFriends6(friends);  // ["Hieu là bạn của Bob", "Hieu là bạn của Mary", "Hieu là bạn của John"]
+
+//////////////////////////////////////////////
+// Lecture: Destructoring
+
+// ES5
+var hieu = ['Hieu', 26];
+
+// ES6
+const [name6, age6] = hieu;
+console.log(`${name6} and ${age6}`); // Hieu and 26
+
+const obj = {
+  firstName: 'Nguyen',
+  lastName: 'Hieu'
+}
+
+const {firstName, lastName} = obj;
+console.log(`${firstName} ${lastName}`); // Nguyen Hieu
+
+// Nếu chúng ta muốn tạo biến mới tuy nhiên có tên khác với tên của các properties của object
+const {firstName: fName, lastName: lName} = obj;
+console.log(`${fName} ${lName}`); // Nguyen Hieu
+
+function calAgeRetirement(year) {
+  const age = new Date().getFullYear() - year;
+  return [age, 60 - age];
+}
+
+const [age, retirement] = calAgeRetirement(1994);
+console.log(age); // 26
+console.log(retirement); // 34
