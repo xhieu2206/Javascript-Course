@@ -166,7 +166,7 @@ hieu.myFriends5(friends);  // ["Hieu là bạn của Bob", "Hieu là bạn củ
 // Lecture: Destructoring
 
 // ES5
-var hieu = ['Hieu', 26];
+// var hieu = ['Hieu', 26];
 
 // ES6
 /*
@@ -232,4 +232,30 @@ console.log(fullAgeIndex); // 3
 console.log(ages.find(age => {
   return age >= 18;
 })); // 18
+*/
+
+//////////////////////////////////////////////
+// Lecture: The Spread Operator
+
+// ES5
+/*
+function sumFn(a, b, c, d) {
+  return a + b + c + d;
+}
+
+var numbers = [1, 2, 3, 4];
+var sum2 = sumFn.apply(null, numbers);
+console.log(sum2);
+
+// ES6
+const sum3 = sumFn(...numbers); // đây chính là expand array thành các component, ở đây sẽ là từng item của array numbers. Kết quả vẫn đúng.
+console.log(sum3); // 10 again.
+
+const h = document.querySelector('h1');
+const boxes = document.querySelectorAll('.box');
+
+let nodeList = [h, ...boxes];
+Array.from(nodeList).forEach(item => {
+  item.style.color = 'purple';
+});
 */
