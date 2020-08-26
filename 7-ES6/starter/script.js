@@ -169,6 +169,7 @@ hieu.myFriends5(friends);  // ["Hieu là bạn của Bob", "Hieu là bạn củ
 var hieu = ['Hieu', 26];
 
 // ES6
+/*
 const [name6, age6] = hieu;
 console.log(`${name6} and ${age6}`); // Hieu and 26
 
@@ -192,3 +193,43 @@ function calAgeRetirement(year) {
 const [age, retirement] = calAgeRetirement(1994);
 console.log(age); // 26
 console.log(retirement); // 34
+*/
+
+//////////////////////////////////////////////
+// Lecture: Array
+/*
+const boxes = document.querySelectorAll('.box');
+*/
+
+// ES5
+/*
+var boxesArr5 = Array.prototype.slice.call(boxes); // Mượn method slice từ Array (method borrowing)
+
+boxesArr5.forEach(function(item) {
+  item.style.backgroundColor = 'yellow';
+});
+*/
+
+// ES6
+/*
+const boxesArr6 = Array.from(boxes);
+boxesArr6.forEach(item => item.style.backgroundColor = 'dodgerblue'); // đây là methopd để tạo ra một array từ một iterable object (nodeList trong ví dụ này)
+
+for (const item of boxesArr6) {
+  if (item.className.includes('blue')) {
+    continue;
+  }
+  item.textContent = 'I changed to blue';
+}
+
+var ages = [12, 13, 16, 18, 11];
+
+let fullAgeIndex = ages.findIndex((age) => {
+  return age >= 18;
+});
+
+console.log(fullAgeIndex); // 3
+console.log(ages.find(age => {
+  return age >= 18;
+})); // 18
+*/
