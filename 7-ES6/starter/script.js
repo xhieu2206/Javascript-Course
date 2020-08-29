@@ -307,3 +307,17 @@ function isFullAge6(limit, ...yearsOfBirth) { // yearsOfBirth sẽ được tran
 
 isFullAge6(1994, 2000, 2008, 18); // true true false
 */
+
+//////////////////////////////////////////////
+// Lecture: Default Parameters
+
+/*
+function SmithPerson(fName, yob, lName = 'Smith', nationality = 'Viet Nam') {
+  this.fName = fName;
+  this.lName = lName;
+  this.yob = yob;
+  this.nationality = nationality;
+}
+
+var john = new SmithPerson('John', 1990);
+*/
