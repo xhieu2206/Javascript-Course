@@ -259,3 +259,51 @@ Array.from(nodeList).forEach(item => {
   item.style.color = 'purple';
 });
 */
+
+//////////////////////////////////////////////
+// Lecture: Rest Parameters
+
+// ES5
+/*
+function isFullAge5() {
+  console.log(arguments); // là một args mà mọi function đều có thể access được.
+  var argsArr = Array.prototype.slice.call(arguments);
+
+  argsArr.forEach(function(age) {
+    console.log((2020 - age) >= 18);
+  });
+}
+
+// isFullAge5(1994, 2000, 2008); // true true false
+
+// ES6
+function isFullAge6(...yearsOfBirth) { // yearsOfBirth sẽ được transfer thành một array các tham số, và được sử dụng như một param trong function
+  yearsOfBirth.forEach(age => {
+    console.log((2020 - age) >= 18);
+  })
+}
+
+isFullAge6(1994, 2000, 2008, 2009, 1992); // true true false false true
+*/
+
+/*
+function isFullAge5(limit) {
+  console.log(arguments); // là một args mà mọi function đều có thể access được.
+  var argsArr = Array.prototype.slice.call(arguments, 1);
+
+  argsArr.forEach(function(age) {
+    console.log((2020 - age) >= limit);
+  });
+}
+
+// isFullAge5(1994, 2000, 2008, 18); // true true false
+
+// ES6
+function isFullAge6(limit, ...yearsOfBirth) { // yearsOfBirth sẽ được transfer thành một array các tham số, và được sử dụng như một param trong function
+  yearsOfBirth.forEach(age => {
+    console.log((2020 - age) >= limit);
+  });
+}
+
+isFullAge6(1994, 2000, 2008, 18); // true true false
+*/
