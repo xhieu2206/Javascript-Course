@@ -321,3 +321,28 @@ function SmithPerson(fName, yob, lName = 'Smith', nationality = 'Viet Nam') {
 
 var john = new SmithPerson('John', 1990);
 */
+
+//////////////////////////////////////////////
+// Lecture: Maps
+
+const question = new Map();
+question.set('question', 'Phiên bản mới nhất của JS là gì?');
+question.set(1, 'ES5');
+question.set(2, 'ES6');
+question.set(3, 'ES2015');
+question.set(4, 'ES40');
+question.set('correct', 3);
+question.set(true, 'Đúng rồi');
+question.set(false, 'Trả lời lại đi nhé sai rồi');
+
+// Size của map
+console.log(question.size); // 8
+
+// Retrieve value của map:
+console.log(question.get('question'));
+
+// delete a key - value pair
+question.delete(4);
+
+// kiểm tra xem có key này tồn tại không
+console.log(question.has(4)) // false
