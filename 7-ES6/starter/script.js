@@ -1,12 +1,11 @@
 // Lecture: Let & Const
 
 // ES5
-/*
-var nameE = 'Hieu Nguyen';
-var age5 = 26;
-nameE = 'Hieu Xuan';
-console.log(nameE);
-*/
+
+// var name5 = 'Hieu Nguyen';
+// var age5 = 26;
+// name5 = 'Hieu Xuan';
+// console.log(name5);
 
 // ES6
 /*
@@ -80,88 +79,85 @@ ages6 = years.map((year, index) => {
 });
 */
 
+//////////////////////////////////////////////
 // Arrow Function: Lexical 'this' keyword
-
-// ES5
 /*
-var box5 = {
-  color: 'green',
-  position: 1,
-  clickMe: function() {
-    var _self = this;
-    document.querySelector('.green').addEventListener('click', function() {
-      var str = 'đây là hộp thứ ' + _self.position + ' có màu ' + _self.color;
-      alert(str);
-    });
-  }
-}
+const years = [1994, 1992, 2000, 1999, 1956];
 
-box5.clickMe();
+const ages6 = years.map((cur) => {
+  return 2020 - cur;
+});
+
+console.log(ages6);
 */
 
-// ES6
-/*
-const box6 = {
-  color: 'green',
-  position: 1,
-  clickMe: function() {
-    document.querySelector('.green').addEventListener('click', () => {
-      var str = 'đây là hộp thứ ' + this.position + ' có màu ' + this.color;
-      alert(str);
-    });
-  }
-}
+// var box5 = {
+//   color: 'green',
+//   pos: 1,
+//   clickMe: function() {
+//     var _self = this;
 
-box6.clickMe(); // đây là hộp thứ 1 có màu green
-*/
+//     document.querySelector('.green').addEventListener('click', function() {
+//       var str = 'This is box number ' + _self.pos + ' and have ' + _self.color + ' as color';
+//       alert(str);
+//     });
+//   }
+// }
 
-/*
-const box66 = {
-  color: 'green',
-  position: 1,
-  clickMe: () => {
-    document.querySelector('.green').addEventListener('click', () => {
-      var str = 'đây là hộp thứ ' + this.position + ' có màu ' + this.color;
-      alert(str);
-    });
-  }
-}
+// box5.clickMe();
 
-box66.clickMe(); // đây là hộp thứ undefined có màu undefined
-*/
+// const box6 = {
+//   color: 'green',
+//   pos: 1,
+//   clickMe: function() {
+//     document.querySelector('.green').addEventListener('click', () => {
+//       console.log(this); // trỏ đến box6 đúng như mong muốn
+//       var str = 'This is box number ' + this.pos + ' and have ' + this.color + ' as color';
+//       alert(str);
+//     });
+//   }
+// }
 
-/*
-function Person(name) {
-  this.name = name;
-}
-*/
+// box6.clickMe();
 
-/*
-Person.prototype.myFriends5 = function(friends) {
-  var arr = friends.map(function(name) {
-    return this.name + ' là bạn của ' + name;
-  }.bind(this)); // ở đây chúng ta sẽ bind function(name) { ... } với object là object tương ứng với THIS keyword, THIS keyword ở đây được xác định là object được tạo bởi function constructor Person.
+// const box66 = {
+//   color: 'green',
+//   pos: 1,
+//   clickMe: () => {
+//     console.log(this);
+//     document.querySelector('.green').addEventListener('click', () => {
+//       var str = 'This is box number ' + this.pos + ' and have ' + this.color + ' as color';
+//       alert(str);
+//     });
+//   }
+// }
 
-  console.log(arr);
-}
+// box66.clickMe();
 
-var friends = ['Bob', 'Mary', 'John'];
-var hieu = new Person('Hieu');
-hieu.myFriends5(friends);  // ["Hieu là bạn của Bob", "Hieu là bạn của Mary", "Hieu là bạn của John"]
-*/
+// function Person(name) {
+//   this.name = name;
+// }
 
+// Person.prototype.myFriends5 = function(friends) {
+//   var arr = friends.map(function(cur) {
+//     return this.name + ' is friend with ' + cur;
+//   }.bind(this));
+
+//   console.log(arr);
+// }
+
+// var friends = ['Duc', 'Minh', 'Hoang'];
+
+// // new Person('Hieu').myFriends5(friends);
 // Person.prototype.myFriends6 = function(friends) {
-//   var arr = friends.map((name) => {
-//     return this.name + ' là bạn của ' + name;
+//   var arr = friends.map(cur => {
+//     return this.name + ' is friend with ' + cur;
 //   });
 
 //   console.log(arr);
 // }
 
-// var friends = ['Bob', 'Mary', 'John'];
-// var hieu = new Person('Hieu');
-// hieu.myFriends6(friends);  // ["Hieu là bạn của Bob", "Hieu là bạn của Mary", "Hieu là bạn của John"]
-
+// new Person('Hieu').myFriends6(friends);
 //////////////////////////////////////////////
 // Lecture: Destructoring
 
@@ -324,7 +320,7 @@ var john = new SmithPerson('John', 1990);
 
 //////////////////////////////////////////////
 // Lecture: Maps
-
+/*
 const question = new Map();
 question.set('question', 'Phiên bản mới nhất của JS là gì?');
 question.set(1, 'ES5');
@@ -346,3 +342,4 @@ question.delete(4);
 
 // kiểm tra xem có key này tồn tại không
 console.log(question.has(4)) // false
+*/
