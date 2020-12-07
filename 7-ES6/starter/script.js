@@ -160,14 +160,14 @@ console.log(ages6);
 // new Person('Hieu').myFriends6(friends);
 //////////////////////////////////////////////
 // Lecture: Destructoring
-
+/*
 // ES5
-// var hieu = ['Hieu', 26];
+var hieu = ['Hieu', 26];
 
 // ES6
-/*
+
 const [name6, age6] = hieu;
-console.log(`${name6} and ${age6}`); // Hieu and 26
+console.log(`${name6} and ${age6}`); // Hieu, 26
 
 const obj = {
   firstName: 'Nguyen',
@@ -193,74 +193,104 @@ console.log(retirement); // 34
 
 //////////////////////////////////////////////
 // Lecture: Array
-/*
-const boxes = document.querySelectorAll('.box');
-*/
+
+// const boxes = document.querySelectorAll('.box');
 
 // ES5
-/*
-var boxesArr5 = Array.prototype.slice.call(boxes); // Mượn method slice từ Array (method borrowing)
+// var boxesArr5 = Array.prototype.slice.call(boxes); // Mượn method slice từ Array (method borrowing)
 
-boxesArr5.forEach(function(item) {
-  item.style.backgroundColor = 'yellow';
+// boxesArr5.forEach(function(item) {
+//   item.style.backgroundColor = 'brown';
+// });
+
+
+// ES6
+/*
+const boxesArray6 = Array.from(boxes); // transform node list boxes thành một array
+
+boxesArray6.forEach((cur) => {
+  cur.style.backgroundColor = 'blue';
 });
+
+for (const cur of boxesArray6) {
+  if (cur.className.includes('blue')) {
+    continue;
+  }
+
+  cur.textContent = 'I changed to blue!!!';
+}
+*/
+// ES5
+
+
+// var ages = [12, 17, 11, 21, 15, 9];
+/*
+var fullAges = ages.map(function(cur) {
+  if (cur >= 18) {
+    return true;
+  } else {
+    return false;
+  }
+});
+
+console.log(fullAges.indexOf(true));
 */
 
 // ES6
 /*
-const boxesArr6 = Array.from(boxes);
-boxesArr6.forEach(item => item.style.backgroundColor = 'dodgerblue'); // đây là methopd để tạo ra một array từ một iterable object (nodeList trong ví dụ này)
-
-for (const item of boxesArr6) {
-  if (item.className.includes('blue')) {
-    continue;
+const fullAgeIndex = ages.findIndex((cur) => {
+  if (cur >= 18) {
+    return cur;
   }
-  item.textContent = 'I changed to blue';
-}
-
-var ages = [12, 13, 16, 18, 11];
-
-let fullAgeIndex = ages.findIndex((age) => {
-  return age >= 18;
 });
 
-console.log(fullAgeIndex); // 3
-console.log(ages.find(age => {
-  return age >= 18;
-})); // 18
+console.log(fullAgeIndex);
+
+const fullAge = ages.find(cur => {
+  if (cur >= 18) {
+    return cur;
+  }
+});
+
+console.log(fullAge);
 */
 
 //////////////////////////////////////////////
 // Lecture: The Spread Operator
-
-// ES5
 /*
-function sumFn(a, b, c, d) {
+function addFourAges(a, b, c, d) {
   return a + b + c + d;
 }
 
-var numbers = [1, 2, 3, 4];
-var sum2 = sumFn.apply(null, numbers);
-console.log(sum2);
+// ES5
+var ages = [12, 13, 14, 15];
+
+console.log(addFourAges.apply(null, ages));
 
 // ES6
-const sum3 = sumFn(...numbers); // đây chính là expand array thành các component, ở đây sẽ là từng item của array numbers. Kết quả vẫn đúng.
-console.log(sum3); // 10 again.
+console.log(addFourAges(...ages));
+
+const familySmith = ['John', 'Jame', 'Max'];
+const familyHieu = ['Hieu', 'Hoa', 'Dong', 'Giang'];
+
+const bigFamily = [...familyHieu, 'Lily', ...familySmith];
+
+console.log(bigFamily);
 
 const h = document.querySelector('h1');
 const boxes = document.querySelectorAll('.box');
 
-let nodeList = [h, ...boxes];
-Array.from(nodeList).forEach(item => {
-  item.style.color = 'purple';
+const all = [h, ...boxes];
+Array.from(all).forEach(cur => {
+  cur.style.color = 'purple';
 });
 */
 
 //////////////////////////////////////////////
 // Lecture: Rest Parameters
-
-// ES5
 /*
+// ES5
+
 function isFullAge5() {
   console.log(arguments); // là một args mà mọi function đều có thể access được.
   var argsArr = Array.prototype.slice.call(arguments);
@@ -274,6 +304,7 @@ function isFullAge5() {
 
 // ES6
 function isFullAge6(...yearsOfBirth) { // yearsOfBirth sẽ được transfer thành một array các tham số, và được sử dụng như một param trong function
+  // yearsOfBirth đã trở thành 1 array do đó chúng ta có thể loop qua mảng này = forEach
   yearsOfBirth.forEach(age => {
     console.log((2020 - age) >= 18);
   })
@@ -284,7 +315,6 @@ isFullAge6(1994, 2000, 2008, 2009, 1992); // true true false false true
 
 /*
 function isFullAge5(limit) {
-  console.log(arguments); // là một args mà mọi function đều có thể access được.
   var argsArr = Array.prototype.slice.call(arguments, 1);
 
   argsArr.forEach(function(age) {
@@ -292,7 +322,7 @@ function isFullAge5(limit) {
   });
 }
 
-// isFullAge5(1994, 2000, 2008, 18); // true true false
+isFullAge5(18, 1994, 2000, 2008); // true true false
 
 // ES6
 function isFullAge6(limit, ...yearsOfBirth) { // yearsOfBirth sẽ được transfer thành một array các tham số, và được sử dụng như một param trong function
@@ -301,7 +331,7 @@ function isFullAge6(limit, ...yearsOfBirth) { // yearsOfBirth sẽ được tran
   });
 }
 
-isFullAge6(1994, 2000, 2008, 18); // true true false
+isFullAge6(18, 1994, 2000, 2008); // true true false
 */
 
 //////////////////////////////////////////////
