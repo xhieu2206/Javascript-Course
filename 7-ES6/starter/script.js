@@ -373,3 +373,139 @@ question.delete(4);
 // kiểm tra xem có key này tồn tại không
 console.log(question.has(4)) // false
 */
+
+/*
+const question = new Map();
+
+question.set('question', 'Tên của phiên bản JS nhiều người biết đến nhất hiện tại?');
+
+question.set(1, 'ES5');
+question.set(2, 'ES6');
+question.set(3, 'ES8');
+question.set(4, 'ES9');
+
+question.set('correct', 2);
+
+question.set(true, 'Correct answer :D');
+question.set(false, 'Sai cmnr!!!');
+
+console.log(question);
+console.log(question.get('question'));
+console.log(question.size);
+
+// question.delete(4);
+
+if (question.has(4)) {
+  console.log("Answer 4 is here");
+}
+
+// question.clear();
+
+// loop with forEach
+question.forEach((value, key) => {
+  console.log(`Tên của key là "${key}" và có value là "${value}"`);
+});
+
+console.log('------------------------------------');
+
+// loop with of và sử dụng destructoring
+for (let [key, value] of question.entries()) {
+  console.log(`Tên của key là "${key}" và có value là "${value}"`);
+}
+*/
+
+//////////////////////////////////////////////
+// Lecture: Classes
+
+// ES5
+
+/*
+var testPerson = new Person('test', 1994, 'Test'); // có thể dùng được, không báo lỗi
+function Person(name, yob, job) {
+  this.name = name;
+  this.yob = yob;
+  this.job = job;
+}
+
+Person.prototype.calcAge = function() {
+  var age = new Date().getFullYear() - this.yob;
+  console.log(age);
+}
+
+// ES6
+let hieu = new Person6('Hieu', 1994, 'Developer'); // Lỗi
+class Person6 {
+  constructor(name, yob, job) {
+    this.name = name;
+    this.yob = yob;
+    this.job = job;
+  }
+
+  calcAge() {
+    let age = new Date().getFullYear() - this.yob;
+    console.log(age);
+  }
+
+  static greeting() {
+    console.log('Chào mày');
+  }
+}
+
+Person6.greeting();
+*/
+
+//////////////////////////////////////////////
+// Lecture: Classes with sub-classes
+var Person5 = function(name, yob, job) {
+  this.name = name;
+  this.yob = yob;
+  this.job = job;
+}
+
+Person5.prototype.calcAge = function() {
+  var age = new Date().getFullYear() - this.yob;
+  console.log(age);
+}
+
+var Athlete5 = function(name, yob, job, olympicGames, medals) {
+  console.log(this);
+  Person5.call(this, name, yob, job); // call super class function constructor để thực hiện việc kế thừa. THIS keyword ở đây sẽ trỏ đến instance được tạo ra bởi Athlete5 sử dụng NEW keyword (empty object)
+  this.olympicGames = olympicGames;
+  this.medals = medals;
+}
+
+Athlete5.prototype = Object.create(Person5.prototype); // Object.create cho phép manually set prototype chain của một object, mà như ở đây chúng ta muốn prototype của Athlete5 tương tự prototype của Person5
+
+var hieu5 = new Athlete5('Hieu', 1994, 'table tennis player', 100, 10);
+hieu5.calcAge(); // 26
+
+// ES6
+class Person6 {
+  constructor(name, yob, job) {
+    this.name = name;
+    this.yob = yob;
+    this.job = job;
+  }
+
+  calcAge() {
+    let age = new Date().getFullYear() - this.yob;
+    console.log(age);
+  }
+}
+
+class Athlete6 extends Person6 {
+  constructor(name, yob, job, olympicGames, medals) {
+    super(name, yob, job); // tương tự với lúc chúng ta dùng CALL ở trên
+    this.olympicGames = olympicGames;
+    this.medals = medals
+  }
+
+  wonMedal() {
+    this.medals++;
+    console.log(this.medals);
+  }
+}
+
+const hieu6 = new Athlete6('Hieu Six', 1994, 'table tennis player', 100, 10);
+hieu6.calcAge();
+hieu6.wonMedal();
