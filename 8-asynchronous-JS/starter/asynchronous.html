@@ -1,15 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Asynchronous JavaScript</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Asynchronous JavaScript</title>
 </head>
+
 <body>
-    <h1>Asynchronous JavaScript</h1>
-    <script>
-        
-    </script>
+	<h1>Asynchronous JavaScript</h1>
+	<script>
+		// const second = () => {
+		// 	setTimeout(() => {
+		// 		console.log('Async Second');
+		// 	}, 2000);
+		// };
+
+		// const first = () => {
+		// 	console.log('First');
+		// 	second();
+		// 	console.log('The end');
+		// }
+
+		// first();
+
+		function getRecipe() {
+			setTimeout(() => {
+				const recipeID = [1, 2, 3, 4, 5];
+				console.log(recipeID);
+
+				setTimeout((id) => { // chúng ta sẽ chain các setTimeout vào với nhau.
+					const recipe = {
+						title: 'Bánh gà',
+						publisher: 'Jonas'
+					}
+
+					console.log(`ID là ${id}, title là ${recipe.title} và người làm là ${recipe.publisher}`);
+
+					setTimeout(publisherName => {
+						const recipe = {
+							title: 'Bánh lợn',
+							publisher: publisherName
+						}
+
+						console.log(`${recipe.title} của ${recipe.publisher} tiếp`);
+					}, 1500, recipe.publisher)
+				}, 1500, recipeID[2]); // arg thứ 3 chính là tham số cho callback function
+			}, 1500);
+		}
+
+		getRecipe();
+	</script>
 </body>
+
 </html>
