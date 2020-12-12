@@ -11,20 +11,28 @@
 <body>
 	<h1>Asynchronous JavaScript</h1>
 	<script>
-		// const second = () => {
-		// 	setTimeout(() => {
-		// 		console.log('Async Second');
-		// 	}, 2000);
-		// };
+		////////////////////
+		// Async example
+		/*
+		const second = () => {
+			setTimeout(() => {
+				console.log('Async Second');
+			}, 2000);
+		};
 
-		// const first = () => {
-		// 	console.log('First');
-		// 	second();
-		// 	console.log('The end');
-		// }
+		const first = () => {
+			console.log('First');
+			second();
+			console.log('The end');
+		}
 
-		// first();
+		first();
+		*/
+		////////////////////
 
+		////////////////////
+		// Callback hell
+		/*
 		function getRecipe() {
 			setTimeout(() => {
 				const recipeID = [1, 2, 3, 4, 5];
@@ -51,6 +59,178 @@
 		}
 
 		getRecipe();
+		*/
+		////////////////////
+
+		////////////////////
+		// Promise
+		/*
+		const getIds = new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve([1, 2, 3, 4, 5]); // chúng ta call resolve khi mà event đã được hoàn thành successfully, như ở đây chúng ta  "đánh dấu" rằng promise sẽ fulfilled
+			}, 1500);
+		});
+
+		const getRecipe = recId => {
+			return new Promise((resolve, reject) => {
+				setTimeout(id => {
+					const recipe = {
+						title: 'Bánh gà',
+						publisher: 'Jonas'
+					}
+
+					console.log(`${id}: ${recipe.title}`);
+					resolve(recipe);
+				}, 1500, recId);
+			});
+		}
+
+		const getRelated = publisher => {
+			return new Promise((resolve, reject) => {
+				setTimeout((publisherName => {
+					const recipe = {
+						title: 'Bánh lợn',
+						publisher: publisherName
+					}
+
+					resolve(`Tiếp tục là ${recipe.title} của ${recipe.publisher}`);
+				}), 1500, publisher);
+			});
+		};
+
+		// bây giờ chúng ta sẽ "consume" promise
+		getIds
+		.then((ids) => { // cho phép chúng ta add một event handler (callback function) cho trường hợp promise fulfilled, và đây chính là array các IDs mà chúng ta đã truyền vào trong resolve
+			console.log(ids);
+
+			// gọi tiếp fake API thứ 2:
+			// getRecipe(ids[2]).then( ... ) // cách này không giải quyết được callback hell, do đó chúng ta sẽ không làm như thế này:
+			return getRecipe(ids[2]); // trả về một promise, đây được gọi là promise chain, then tiếp theo này sẽ handle the resolved promise
+		})
+		.then(recipe => {
+			return getRelated(recipe.publisher);
+		})
+		.then(data => {
+			console.log(data);
+		})
+		.catch(error => {
+			console.log("error");
+		});
+		*/
+		////////////////////
+
+		////////////////////
+		// Async / Await
+		/*
+		const getIds = new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve([1, 2, 3, 4, 5]); // chúng ta call resolve khi mà event đã được hoàn thành successfully, như ở đây chúng ta  "đánh dấu" rằng promise sẽ fulfilled
+			}, 1500);
+		});
+
+		const getRecipe = recId => {
+			return new Promise((resolve, reject) => {
+				setTimeout(id => {
+					const recipe = {
+						title: 'Bánh gà',
+						publisher: 'Jonas'
+					}
+
+					resolve(recipe);
+				}, 1500, recId);
+			});
+		}
+
+		const getRelated = publisher => {
+			return new Promise((resolve, reject) => {
+				setTimeout((publisherName => {
+					const recipe = {
+						title: 'Bánh Pizza',
+						publisher: publisherName
+					}
+
+					resolve(`Tiếp tục là ${recipe.title} của ${recipe.publisher}`);
+				}), 1500, publisher);
+			});
+		};
+
+		async function getRecipesAW() { // đây là một loại function đặc biệt, simply mean function này là một Async function, tức là function sẽ chạy ở background
+			const IDs = await getIds; // getIds là Promise đầu tiên của chúng ta. Ở đây Await expression sẽ stop code executing cho đến khi promise fulfilled. Nếu như Promise được resolved, value của await expression sẽ là resolved value của promise, chính là array các IDs
+			console.log(IDs); // [1, 2, 3, 4, 5]
+
+			const recipe = await getRecipe(IDs[2]);
+			console.log(recipe); // { publisher: "Jonas", title: "Bánh gà" }
+
+			const related = await getRelated(recipe.publisher);
+			console.log(related);
+
+			return related; // khi chúng ta return 1 value từ một async function, promise sẽ tự động được resolved với giá trị này
+		}
+		getRecipesAW()
+			.then(data => {
+				console.log(`Data tra về: ${data}`); // Data tra về: Tiếp tục là Bánh Pizza  của Jonas
+			});
+		*/
+		////////////////////
+
+		////////////////////
+		// Making AJAX Calls với Fetch và Promises
+		/*
+		function getWeather(woeid) {
+			const proxyurl = "https://cors-anywhere.herokuapp.com/";
+
+			fetch(proxyurl + `https://www.metaweather.com/api/location/${woeid}/`)
+				.then(res => {
+					return res.json(); // return một promise
+				})
+				.then(result => { // chúng ta sẽ xử lý dữ liệu từ promise trả về
+					console.log(result);
+				})
+				.catch(err => {
+					console.log(err);
+				});
+		}
+
+		getWeather(2487956); // san francisco
+		*/
+		////////////////////
+
+		////////////////////
+		// Making AJAX Calls với Fetch và Async / Await
+		/*
+		async function getWeatherAW(woeid) {
+			const proxyurl = "https://cors-anywhere.herokuapp.com/";
+
+			const res = await fetch(proxyurl + `https://www.metaweather.com/api/location/${woeid}/`);
+			const result = await res.json();
+
+			console.log(result);
+		}
+
+		getWeatherAW(2487956); // san francisco
+		*/
+		////////////////////
+
+		////////////////////
+		// Making AJAX Calls với Fetch và Async / Await và try - catch error trong Async / Await
+		async function getWeatherAW(woeid) {
+			try {
+				const proxyurl = "https://cors-anywhere.herokuapp.com/";
+
+				const res = await fetch(proxyurl + `https://www.metaweather.com/api/location/${woeid}/`);
+				const result = await res.json();
+
+				return result;
+			} catch(err) {
+				console.log(err); // được catch ở đây
+			}
+		}
+
+		getWeatherAW(2487956)
+			.then(data => {
+				console.log(data);
+			});
+		////////////////////
 	</script>
 </body>
 
