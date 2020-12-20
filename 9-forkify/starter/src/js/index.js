@@ -93,3 +93,17 @@ const controlRecipe = async () => {
 }
 
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe));
+
+// handing recipe button clicks
+elements.recipe.addEventListener('click', e => {
+  if (e.target.matches('.btn-descrease, .btn-descrease *')) { // * có nghĩa là không chỉ element có class như vậy, mà bất cứ element nào là child của những element đó, tương tự với CSS selector
+    if (state.recipe.servings > 1) {
+      state.recipe.updateServings('dec');
+      recipeView.updateServingsIngredients(state.recipe);
+    }
+  } else if (e.target.matches('.btn-increase, .btn-increase *')) {
+    state.recipe.updateServings('inc');
+    recipeView.updateServingsIngredients(state.recipe);
+  }
+  console.log(state.recipe);
+});
