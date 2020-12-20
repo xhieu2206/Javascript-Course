@@ -1,4 +1,4 @@
-// https://forkify-api.herokuapp.com/api/get?rId=47746
+// https://forkify-api.herokuapp.com/api/get?rId=46943
 import axios from 'axios';
 
 export default class Recipe {
@@ -33,12 +33,13 @@ export default class Recipe {
   parseIngredients() { // method để xử lý ingredients
     const unitsLong = ['tablespoons', 'tablespoon', 'ounces', 'ounce', 'teaspoons', 'teaspoon', 'cups', 'pounds'];
     const unitShort = ['tbsp', 'tbsp', 'oz', 'oz', 'tsp', 'tsp', 'cup', 'pound'];
+    const units = [...unitShort, 'kg', 'g'];
 
     const newIngredients = this.ingredients.map(el => {
       // uniform units
       let ingredient = el.toLowerCase();
       unitsLong.forEach((unit, index) => {
-        ingredient = ingredient.replace(unit, unitShort[index]);
+        ingredient = ingredient.replace(unit, units[index]);
       });
 
       // remove parentheses
@@ -46,7 +47,7 @@ export default class Recipe {
 
       // parse ingredients into count, unit and ingredient
       const arrIng = ingredient.split(' ');
-      const unitIndex = arrIng.findIndex(el2 => unitShort.includes(el2));
+      const unitIndex = arrIng.findIndex(el2 => units.includes(el2));
 
       let objIng;
       if (unitIndex > -1) {
