@@ -19,7 +19,12 @@ export const renderItem = item => {
   elements.shopping.insertAdjacentHTML('afterbegin', markup);
 }
 
+// remove all ingredients in shopping list when we add a new items to shopping list
+export const deleteIngredients = () => {
+  elements.shopping.innerHTML = '';
+}
+
 export const deleteItem = id => {
-  const item = document.querySelector('[data-itemid="${id}"]');
-  item.parentElement.removeChild(item);
+  const item = document.querySelector(`[data-itemid="${id}"]`);
+  if (item) item.parentElement.removeChild(item);
 }
