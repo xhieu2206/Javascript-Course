@@ -1,28 +1,32 @@
-import { elements } from './base';
-import { Fraction } from 'fractional'
+import {
+	elements
+} from './base';
+import {
+	Fraction
+} from 'fractional'
 
 export const clearRecipe = () => {
-  elements.recipe.innerHTML = '';
+	elements.recipe.innerHTML = '';
 }
 
 const formatCount = count => {
-  if (count) {
-    // 2.5 ===> 2 1/2
-    const [int, dec] = count.toString().split('.').map(el => parseInt(el, 10));
-    if (!dec) return count;
-    if (int === 0) {
-      const fr = new Fraction(count);
-      return `${fr.numerator}/${fr.denominator}`
-    } else {
-      const fr = new Fraction(count - int);
-      return `${int} ${fr.numerator}/${fr.denominator}`;
-    }
-  }
-  return '?';
+	if (count) {
+		// 2.5 ===> 2 1/2
+		const [int, dec] = count.toString().split('.').map(el => parseInt(el, 10));
+		if (!dec) return count;
+		if (int === 0) {
+			const fr = new Fraction(count);
+			return `${fr.numerator}/${fr.denominator}`
+		} else {
+			const fr = new Fraction(count - int);
+			return `${int} ${fr.numerator}/${fr.denominator}`;
+		}
+	}
+	return '?';
 }
 
 const createIngredient = ingredient => {
-  return `
+	return `
   <li class="recipe__item">
     <svg class="recipe__icon">
         <use href="img/icons.svg#icon-check"></use>
@@ -36,8 +40,8 @@ const createIngredient = ingredient => {
   `
 }
 
-export const renderRecipe = recipe => {
-  const markup = `
+export const renderRecipe = (recipe, isLiked) => {
+	const markup = `
   <figure class="recipe__fig">
       <img src="${recipe.img}" alt="${recipe.title}" class="recipe__img">
       <h1 class="recipe__title">
@@ -76,7 +80,7 @@ export const renderRecipe = recipe => {
       </div>
       <button class="recipe__love">
           <svg class="header__likes">
-              <use href="img/icons.svg#icon-heart-outlined"></use>
+              <use href="img/icons.svg#icon-heart${isLiked ? '' : '-outlined'}"></use>
           </svg>
       </button>
   </div>
@@ -112,16 +116,16 @@ export const renderRecipe = recipe => {
   </div>
   `;
 
-  elements.recipe.insertAdjacentHTML('afterbegin', markup);
+	elements.recipe.insertAdjacentHTML('afterbegin', markup);
 }
 
 export const updateServingsIngredients = recipe => {
-  // update servings
-  document.querySelector('.recipe__info-data--people').textContent = recipe.servings;
+	// update servings
+	document.querySelector('.recipe__info-data--people').textContent = recipe.servings;
 
-  // update ingredients
-  const countEles = Array.from(document.querySelectorAll('.recipe__count'));
-  countEles.forEach((el, i) => {
-    el.textContent = formatCount(recipe.ingredients[i].count);
-  });
+	// update ingredients
+	const countEles = Array.from(document.querySelectorAll('.recipe__count'));
+	countEles.forEach((el, i) => {
+		el.textContent = formatCount(recipe.ingredients[i].count);
+	});
 }

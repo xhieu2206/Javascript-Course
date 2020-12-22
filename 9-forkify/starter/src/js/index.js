@@ -8,6 +8,7 @@ import { elements, renderLoader, clearLoader } from './views/base';
 import * as searchView from './views/searchView';
 import * as recipeView from './views/recipeView';
 import * as listView from './views/listView';
+import * as likesView from './views/likesView';
 
 /** Global sate of app
  * - Search object
@@ -16,6 +17,9 @@ import * as listView from './views/listView';
  * - Liked recipes
 */
 const state = {} // init một empty object
+
+// Just for testing
+state.likes = new Likes();
 
 const controlSearch = async () => { // do chúng ta sẽ dùng một await promise, ở đây là promise getResults, do đó chúng ta sẽ "nói trước" đây là một async function
 
@@ -90,7 +94,7 @@ const controlRecipe = async () => {
 
       // render recipe
       clearLoader()
-      recipeView.renderRecipe(state.recipe);
+      recipeView.renderRecipe(state.recipe, state.likes.isLiked(id)); // render nút like button nếu như recipe đã được like
     } catch (err) {
       alert('Something went wrong when processing on recipe :(');
     }
@@ -132,9 +136,10 @@ const controlLike = () => {
     )
 
     // toggle like button
+    likesView.toggleLikeBtn(true);
 
     // add like to the UI list
-    console.log(state.likes);
+    likesView.renderLike(newLike)
 
   // user has liked current recipe
   } else {
@@ -142,10 +147,13 @@ const controlLike = () => {
     state.likes.deleteLike(currentId);
 
     // toggle the like button
+    likesView.toggleLikeBtn(false);
 
     // remove like to the UI list
-    console.log(state.likes);
+    likesView.deleteLike(currentId);
   }
+
+  likesView.toggleLikeMenu(state.likes.getNumLikes());
 }
 
 // handle delete and update list item events
