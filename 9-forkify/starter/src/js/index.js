@@ -18,8 +18,6 @@ import * as likesView from './views/likesView';
 */
 const state = {} // init một empty object
 
-// Just for testing
-state.likes = new Likes();
 
 const controlSearch = async () => { // do chúng ta sẽ dùng một await promise, ở đây là promise getResults, do đó chúng ta sẽ "nói trước" đây là một async function
 
@@ -175,6 +173,20 @@ elements.shopping.addEventListener('click', e => {
   }
 });
 
+// restore likes when the page loaded
+window.addEventListener('load', () => {
+  state.likes = new Likes();
+  state.likes.readStorage();
+
+  // toggle the like button menu
+  likesView.toggleLikeMenu(state.likes.getNumLikes());
+
+  // render the existing likes
+  state.likes.likes.forEach(like => {
+    likesView.renderLike(like);
+  })
+});
+
 // handing recipe button clicks
 elements.recipe.addEventListener('click', e => {
   if (e.target.matches('.btn-descrease, .btn-descrease *')) { // * có nghĩa là không chỉ element có class như vậy, mà bất cứ element nào là child của những element đó, tương tự với CSS selector
@@ -193,5 +205,4 @@ elements.recipe.addEventListener('click', e => {
     // Like controller
     controlLike();
   }
-  console.log(state.recipe);
 });
