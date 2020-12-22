@@ -13,7 +13,7 @@ export default class Likes {
     this.likes.splice(this.likes.findIndex(el => el.id === id), 1);
   }
 
-  isLike(id) { // kiểm tra xem một recipe có được liked hay không.
+  isLiked(id) { // kiểm tra xem một recipe có được liked hay không.
     return this.likes.findIndex(el => el.id === id) !== -1;
   }
 
